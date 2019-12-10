@@ -35,9 +35,9 @@ void error(const char *format, ...) {
 #define USAGE \
 	"%s - convert headerless 10-bit packed raw image to GBRG 8-bit format\n" \
 	"Usage: %s [-h] -s XxY [-f <format>] <inputfile> <outputfile>\n" \
-	"-f <format>  Specify input file format (-f ? for list, default ‘pBAA’)\n" \
+	"-f <format>  Specify input file format (-f ? for list, default SRGGB10P)\n" \
 	"-s XxY       Specify input image size (e.g. 640x480)\n" \
-	"-b           Write the original Bayer data to <infile>.bayer.pnm" \
+	"-b           Write the original Bayer data to <infile>.bayer.pnm\n" \
 	"-h           Shows this help\n"
 
 static int parse_size(const char *p, int *w, int *h)
@@ -74,7 +74,7 @@ static const char bayer_suffix[] = ".bayer.pnm";
 int main(int argc, char* argv[]) {
 	FILE *fp_in, *fp_out, *fp_out_bayer;
 	int size[2] = {-1,-1};
-	__u32 format;
+	__u32 format = V4L2_PIX_FMT_SRGGB10P;
 	int write_bayer_pnm = 0;
 	char *file_in = NULL, *file_out = NULL, *file_out_bayer = NULL;
 	int line_len, width, height;
